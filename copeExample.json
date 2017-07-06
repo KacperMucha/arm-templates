@@ -1,0 +1,47 @@
+/*
+Template shows how to use both resource copy and property copy.
+*/
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {
+        "apiVersion": "2017-03-01"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[concat('nsg', copyIndex())]",
+            "apiVersion": "[variables('apiVersion']",
+            "location": "[resourceGroup().location]",
+            "copy": {
+                "name": "nsgRuleCopy",
+                "count": 2
+            },
+            "scale": null,
+            "properties": {
+                "copy": [
+                    {
+                        "name": "securityRules",
+                        "count": 2,
+                        "input": {
+                            "name": "[copyindex('securityRules')]",
+                            "properties": {
+                                "protocol": "*",
+                                "sourcePortRange": "*",
+                                "destinationPortRange": "*",
+                                "sourceAddressPrefix": "*",
+                                "destinationAddressPrefix": "internet",
+                                "access": "Deny",
+                                "priority": "[concat('10', copyindex('securityRules'))]",
+                                "direction": "Outbound"
+                            }
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        }
+    ],
+    "outputs": {}
+}

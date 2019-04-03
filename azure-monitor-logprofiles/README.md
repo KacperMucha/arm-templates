@@ -1,0 +1,2 @@
+# Configure Azure Monitor Logprofiles (Export activity log in Azure Portal)
+This template demonstrates a use case for exporting Azure Monitor activity log to storage account. [Azure PowerShell Az module](https://docs.microsoft.com/en-us/powershell/azure/new-azureps-module-az) is necessary to create deployment at subscription level. More information about subscription level deployments are available [here](https://docs.microsoft.com/en-us/azure/azure-resource-manager/deploy-to-subscription#create-empty-resource-group).
